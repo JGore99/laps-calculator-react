@@ -27,17 +27,18 @@ class LapCalculator extends React.Component {
   }
 
   handleCalculation() {
-    e.preventDefault();
-    const numberOfLaps = e.target.elements.option.value
-    console.log(numberOfLaps);
-    if (this.state.park !== undefined) {
-      console.log("sup?");
+    console.log(this.state);
+    if (this.state.park === undefined) {
+      return <p>Please specify location</p>;
     } else {
-      ("Where are you at?");
+      return <p>derpity</p>;
     }
   }
-  handleLaps() {
-    console.log("hit");
+
+  handleLaps(e) {
+    this.setState({ laps: e.target.value }, () => {
+      console.log(this.state);
+    });
   }
   render() {
     const title = "Park Lap Calculator";
@@ -53,11 +54,15 @@ class LapCalculator extends React.Component {
             "https://fitballingrunningmom.files.wordpress.com/2015/04/nyc-prospectpark-map.jpg"
           }
         />
-        <form>
-          <input type="number" min="0"></input>
-          <p>Laps</p>
-          <button onSubmit={this.handleCalculation}>Calculate</button>
-        </form>
+        <input
+          type="number"
+          min="0"
+          name="laps"
+          onChange={this.handleLaps}
+        ></input>
+        <p>Laps</p>
+        <button type="button" onClick={() => { this.handleCalculation() }}>Calculate</button>
+        < this.handleCalculation />
       </div>
     );
   }

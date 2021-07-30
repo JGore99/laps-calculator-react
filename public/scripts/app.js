@@ -48,23 +48,35 @@ var LapCalculator = function (_React$Component) {
   }, {
     key: "handleCalculation",
     value: function handleCalculation() {
-      e.preventDefault();
-      var numberOfLaps = e.target.elements.option.value;
-      console.log(numberOfLaps);
-      if (this.state.park !== undefined) {
-        console.log("sup?");
+      console.log(this.state);
+      if (this.state.park === undefined) {
+        return React.createElement(
+          "p",
+          null,
+          "Please specify location"
+        );
       } else {
-        "Where are you at?";
+        return React.createElement(
+          "p",
+          null,
+          "derpity"
+        );
       }
     }
   }, {
     key: "handleLaps",
-    value: function handleLaps() {
-      console.log("hit");
+    value: function handleLaps(e) {
+      var _this3 = this;
+
+      this.setState({ laps: e.target.value }, function () {
+        console.log(_this3.state);
+      });
     }
   }, {
     key: "render",
     value: function render() {
+      var _this4 = this;
+
       var title = "Park Lap Calculator";
       return React.createElement(
         "div",
@@ -91,21 +103,25 @@ var LapCalculator = function (_React$Component) {
         React.createElement("img", {
           src: "https://fitballingrunningmom.files.wordpress.com/2015/04/nyc-prospectpark-map.jpg"
         }),
+        React.createElement("input", {
+          type: "number",
+          min: "0",
+          name: "laps",
+          onChange: this.handleLaps
+        }),
         React.createElement(
-          "form",
+          "p",
           null,
-          React.createElement("input", { type: "number", min: "0" }),
-          React.createElement(
-            "p",
-            null,
-            "Laps"
-          ),
-          React.createElement(
-            "button",
-            { onSubmit: this.handleCalculation },
-            "Calculate"
-          )
-        )
+          "Laps"
+        ),
+        React.createElement(
+          "button",
+          { type: "button", onClick: function onClick() {
+              _this4.handleCalculation();
+            } },
+          "Calculate"
+        ),
+        React.createElement(this.handleCalculation, null)
       );
     }
   }]);
