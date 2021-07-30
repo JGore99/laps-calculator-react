@@ -28,10 +28,16 @@ class LapCalculator extends React.Component {
 
   handleCalculation() {
     console.log(this.state);
-    if (this.state.park === undefined) {
-      return <p>Please specify location</p>;
+    if (this.state.park === undefined || this.state.laps === 0 ) {
+      return null;
     } else {
-      return <p>derpity</p>;
+      return (
+        <div>
+          <h2>{this.state.park}</h2>;
+          <p>Miles: {this.state.miles}</p>
+          <p>Elevation: {this.state.elev}</p>
+        </div>
+      )
     }
   }
 
@@ -61,7 +67,6 @@ class LapCalculator extends React.Component {
           onChange={this.handleLaps}
         ></input>
         <p>Laps</p>
-        <button type="button" onClick={() => { this.handleCalculation() }}>Calculate</button>
         < this.handleCalculation />
       </div>
     );

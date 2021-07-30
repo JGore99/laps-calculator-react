@@ -49,17 +49,30 @@ var LapCalculator = function (_React$Component) {
     key: "handleCalculation",
     value: function handleCalculation() {
       console.log(this.state);
-      if (this.state.park === undefined) {
-        return React.createElement(
-          "p",
-          null,
-          "Please specify location"
-        );
+      if (this.state.park === undefined || this.state.laps === 0) {
+        return null;
       } else {
         return React.createElement(
-          "p",
+          "div",
           null,
-          "derpity"
+          React.createElement(
+            "h2",
+            null,
+            this.state.park
+          ),
+          ";",
+          React.createElement(
+            "p",
+            null,
+            "Miles: ",
+            this.state.miles
+          ),
+          React.createElement(
+            "p",
+            null,
+            "Elevation: ",
+            this.state.elev
+          )
         );
       }
     }
@@ -75,8 +88,6 @@ var LapCalculator = function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this4 = this;
-
       var title = "Park Lap Calculator";
       return React.createElement(
         "div",
@@ -113,13 +124,6 @@ var LapCalculator = function (_React$Component) {
           "p",
           null,
           "Laps"
-        ),
-        React.createElement(
-          "button",
-          { type: "button", onClick: function onClick() {
-              _this4.handleCalculation();
-            } },
-          "Calculate"
         ),
         React.createElement(this.handleCalculation, null)
       );
