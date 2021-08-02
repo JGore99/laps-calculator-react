@@ -1,0 +1,108 @@
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body{
+    display: flex;
+    margin: auto;
+    max-width: 500px;
+    padding: 40px;
+    color: black;
+  }
+  
+  h1{
+    text-align: center;
+  }
+  
+p{
+  color: black;
+}
+
+  .park-container{
+    background: #D3D3D3;
+    border-radius: 10px;
+    width: 400px;
+    min-height: 460px;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 290px 30px 50px 50px auto;
+    grid-template-areas: 
+        "image image"
+        "name name"
+        "input laps"
+        "calculate calculate"
+        "results results";
+     justify-items: center;
+     align-items: center;
+  }
+  
+  .pp-park-image {
+    width: 390px;
+    max-height: auto;
+    border-radius: 30px;
+    padding: 25px;
+    align-self: start;
+    grid-area: image;
+  }
+  
+  #parkSelector {
+    width: 150px;
+    font-size: 18px;
+    grid-area: name;
+    text-align: center;
+    align-self: center;
+  }
+  
+  .parkTitle{
+    font-size: 15px;
+    text-align-last: center;
+  }
+  
+  input[type=number] {
+      height: 30px;
+      width: 3.5rem;
+      min-width: 3.5rem;
+      line-height: 30px;
+      font-size: 16px;
+      padding: 0 8px;
+      grid-area: input;
+      justify-self: end;
+      align-self: center;
+  }
+    
+  .laps {
+    grid-area: laps;
+    font-size: 20px;
+    justify-self: start;
+    align-self: center;
+    padding: 5px;
+    }
+  
+  .calcButton {
+    grid-area: calculate;
+    margin: auto;
+    font-size: 20px;
+    width: 250px;
+    height: 35px;
+    align-self: center;
+  }
+  
+  .rideResults {
+    grid-area: results;
+    align-self: end;
+    justify-self: center; 
+  }
+  
+  .resultsRow {
+    font-size: 20px;
+    margin: 5px;
+    padding: 10px 70px;
+    background-color: #dcdcdc; 
+    border-bottom: 1px grey solid;
+    border-right: 1px grey solid;
+    border-radius: 8px;
+    text-align: center;
+  }

@@ -2,7 +2,6 @@ class LapCalculator extends React.Component {
   constructor(props) {
     super(props);
     this.handleParkSelection = this.handleParkSelection.bind(this);
-    this.handleCalculation = this.handleCalculation.bind(this);
     this.handleLaps = this.handleLaps.bind(this);
     this.state = {
       park: undefined,
@@ -26,21 +25,6 @@ class LapCalculator extends React.Component {
     }
   }
 
-  handleCalculation() {
-    console.log(this.state);
-    if (this.state.park === undefined || this.state.laps === 0 ) {
-      return null;
-    } else {
-      return (
-        <div>
-          <h2>{this.state.park}</h2>;
-          <p>Miles: {this.state.miles}</p>
-          <p>Elevation: {this.state.elev}</p>
-        </div>
-      )
-    }
-  }
-
   handleLaps(e) {
     this.setState({ laps: e.target.value }, () => {
       console.log(this.state);
@@ -48,18 +32,16 @@ class LapCalculator extends React.Component {
   }
   render() {
     const title = "Park Lap Calculator";
+    const { park, miles, elev, laps } = this.state;
     return (
       <div>
+        <HandleImageDisplay park={park} />
         <select name="park-name" onChange={this.handleParkSelection}>
           <option value="disabled">Park Selector</option>
           <option value="prospect">Prospect Park</option>
           <option value="central">Central Park</option>
         </select>
-        <img
-          src={
-            "https://fitballingrunningmom.files.wordpress.com/2015/04/nyc-prospectpark-map.jpg"
-          }
-        />
+
         <input
           type="number"
           min="0"
@@ -67,11 +49,52 @@ class LapCalculator extends React.Component {
           onChange={this.handleLaps}
         ></input>
         <p>Laps</p>
-        < this.handleCalculation />
+        <HandleCalculation park={park} miles={miles} elev={elev} laps={laps} />
       </div>
     );
   }
 }
+
+const HandleCalculation = ({ park, miles, elev, laps }) => {
+  console.log(park, miles, elev, laps);
+  if (park === undefined || laps === 0) {
+    return null;
+  } else {
+    return (
+      <div>
+        <h2>{park}</h2>
+        <p>Miles: {(miles * laps).toFixed(2)}</p>
+        <p>Elevation: {(elev * laps).toFixed(2)}</p>
+      </div>
+    );
+  }
+};
+
+const HandleImageDisplay = ({ park }) => {
+  if (park === "Prospect Park") {
+    return (
+      <div>
+        <img
+          src={
+            "https://fitballingrunningmom.files.wordpress.com/2015/04/nyc-prospectpark-map.jpg"
+          }
+        />
+      </div>
+    );
+  } else if (park === "Central Park") {
+    return (
+      <div>
+        <img
+          src={
+            "https://i0.wp.com/got2run4me.com/wp-content/uploads/2017/05/BIRU-WP-20170516T065827GMT-0400.jpg?w=518"
+          }
+        />
+      </div>
+    );
+  } else {
+    return null;
+  }
+};
 
 const appRoot = document.getElementById("app");
 

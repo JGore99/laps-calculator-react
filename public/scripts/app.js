@@ -17,7 +17,6 @@ var LapCalculator = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (LapCalculator.__proto__ || Object.getPrototypeOf(LapCalculator)).call(this, props));
 
     _this.handleParkSelection = _this.handleParkSelection.bind(_this);
-    _this.handleCalculation = _this.handleCalculation.bind(_this);
     _this.handleLaps = _this.handleLaps.bind(_this);
     _this.state = {
       park: undefined,
@@ -46,37 +45,6 @@ var LapCalculator = function (_React$Component) {
       }
     }
   }, {
-    key: "handleCalculation",
-    value: function handleCalculation() {
-      console.log(this.state);
-      if (this.state.park === undefined || this.state.laps === 0) {
-        return null;
-      } else {
-        return React.createElement(
-          "div",
-          null,
-          React.createElement(
-            "h2",
-            null,
-            this.state.park
-          ),
-          ";",
-          React.createElement(
-            "p",
-            null,
-            "Miles: ",
-            this.state.miles
-          ),
-          React.createElement(
-            "p",
-            null,
-            "Elevation: ",
-            this.state.elev
-          )
-        );
-      }
-    }
-  }, {
     key: "handleLaps",
     value: function handleLaps(e) {
       var _this3 = this;
@@ -89,9 +57,16 @@ var LapCalculator = function (_React$Component) {
     key: "render",
     value: function render() {
       var title = "Park Lap Calculator";
+      var _state = this.state,
+          park = _state.park,
+          miles = _state.miles,
+          elev = _state.elev,
+          laps = _state.laps;
+
       return React.createElement(
         "div",
         null,
+        React.createElement(HandleImageDisplay, { park: park }),
         React.createElement(
           "select",
           { name: "park-name", onChange: this.handleParkSelection },
@@ -111,9 +86,6 @@ var LapCalculator = function (_React$Component) {
             "Central Park"
           )
         ),
-        React.createElement("img", {
-          src: "https://fitballingrunningmom.files.wordpress.com/2015/04/nyc-prospectpark-map.jpg"
-        }),
         React.createElement("input", {
           type: "number",
           min: "0",
@@ -125,13 +97,71 @@ var LapCalculator = function (_React$Component) {
           null,
           "Laps"
         ),
-        React.createElement(this.handleCalculation, null)
+        React.createElement(HandleCalculation, { park: park, miles: miles, elev: elev, laps: laps })
       );
     }
   }]);
 
   return LapCalculator;
 }(React.Component);
+
+var HandleCalculation = function HandleCalculation(_ref) {
+  var park = _ref.park,
+      miles = _ref.miles,
+      elev = _ref.elev,
+      laps = _ref.laps;
+
+  console.log(park, miles, elev, laps);
+  if (park === undefined || laps === 0) {
+    return null;
+  } else {
+    return React.createElement(
+      "div",
+      null,
+      React.createElement(
+        "h2",
+        null,
+        park
+      ),
+      React.createElement(
+        "p",
+        null,
+        "Miles: ",
+        (miles * laps).toFixed(2)
+      ),
+      React.createElement(
+        "p",
+        null,
+        "Elevation: ",
+        (elev * laps).toFixed(2)
+      )
+    );
+  }
+};
+
+var HandleImageDisplay = function HandleImageDisplay(_ref2) {
+  var park = _ref2.park;
+
+  if (park === "Prospect Park") {
+    return React.createElement(
+      "div",
+      null,
+      React.createElement("img", {
+        src: "https://fitballingrunningmom.files.wordpress.com/2015/04/nyc-prospectpark-map.jpg"
+      })
+    );
+  } else if (park === "Central Park") {
+    return React.createElement(
+      "div",
+      null,
+      React.createElement("img", {
+        src: "https://i0.wp.com/got2run4me.com/wp-content/uploads/2017/05/BIRU-WP-20170516T065827GMT-0400.jpg?w=518"
+      })
+    );
+  } else {
+    return null;
+  }
+};
 
 var appRoot = document.getElementById("app");
 
